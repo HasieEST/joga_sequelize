@@ -18,9 +18,8 @@ sequelize.authenticate().then(()=>{console.log('Connected to the database')}).ca
 
 
 
-app.get('/',(req,res)=> {
-    res.json({message: 'Welcome to sequelize application.'})
-})
+const articleRouter = require('./routes/article')
+app.use('/',articleRouter)
 
 app.listen(port, ()=>{
     console.log('Server is running on localhost:'+ port)
