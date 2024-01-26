@@ -15,19 +15,19 @@ const createArticle = (req, res) => {
 
 
     const newArticle = models.Article.create({
-        name:name,
-        slug:slug,
-        image:image,
-        body:body,
-        published: new Date().toISOString().slice(0,19).replace('T', ' ')
+        name: name,
+        slug: slug,
+        image: image,
+        body: body,
+        published: new Date().toISOString().slice(0, 19).replace('T', ' ')
     })
-    .then(article=> {
-        console.log(article)
-        return res.status(200).json({message: 'New article is added'})
-    })
-    .catch(error =>{
-        return res.status(500).send(error.message)
-    })
+        .then(article => {
+            console.log(article)
+            return res.status(200).json({ message: 'New article is added' })
+        })
+        .catch(error => {
+            return res.status(500).send(error.message)
+        })
 }
 
 const getArticle = (req, res) => {
@@ -36,32 +36,47 @@ const getArticle = (req, res) => {
             id: req.params.id
         }
     })
-    .then(article =>{
-        console.log(article)
-        return res.status(200).json({article})
-    })
-    .catch(error => {
-        return res.status(500).send(error.message)
-    })
+        .then(article => {
+            console.log(article)
+            return res.status(200).json({ article })
+        })
+        .catch(error => {
+            return res.status(500).send(error.message)
+        })
 }
 
-const updateArticle = (req, res) =>{
+const updateArticle = (req, res) => {
     models.Article.update({
         name: req.body.name,
         slug: req.body.slug,
         image: req.body.image,
         author_id: req.body.author_id,
         body: req.body.body
-    },{
+    }, {
         where: {
             id: req.params.id
         }
     })
-    .then(article=> {
-        console.log(article)
-        return res.status(200).json({message: 'Article is updated'})
+        .then(article => {
+            console.log(article)
+            return res.status(200).json({ message: 'Article is updated' })
+        })
+        .catch(error => {
+            return res.status(500).send(error.message)
+        })
+}
+
+const deleteArticle = (req, res) => {
+    models.Article.destroy({
+        where: {
+            id: req.params.id
+        }
     })
-    .catch(error =>{
+    .then(article => {
+        console.log(article)
+        return res.status(200).json({ message: 'Article is deleted' })
+    })
+    .catch(error => {
         return res.status(500).send(error.message)
     })
 }
@@ -70,5 +85,6 @@ const updateArticle = (req, res) =>{
 module.exports = {
     createArticle,
     getArticle,
-    updateArticle
+    updateArticle,
+    deleteArticle
 }
