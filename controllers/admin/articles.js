@@ -30,6 +30,45 @@ const createArticle = (req, res) => {
     })
 }
 
+const getArticle = (req, res) => {
+    models.Article.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(article =>{
+        console.log(article)
+        return res.status(200).json({article})
+    })
+    .catch(error => {
+        return res.status(500).send(error.message)
+    })
+}
+
+const updateArticle = (req, res) =>{
+    models.Article.update({
+        name: req.body.name,
+        slug: req.body.slug,
+        image: req.body.image,
+        author_id: req.body.author_id,
+        body: req.body.body
+    },{
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(article=> {
+        console.log(article)
+        return res.status(200).json({message: 'Article is updated'})
+    })
+    .catch(error =>{
+        return res.status(500).send(error.message)
+    })
+}
+
+
 module.exports = {
-    createArticle
+    createArticle,
+    getArticle,
+    updateArticle
 }
