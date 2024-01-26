@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.Authors, {
+        foreignKey: {
+          name: 'AuthorId',
+          field: 'author_id'
+        }
+      })
     }
   }
   Article.init({
@@ -29,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    image:{
+    image: {
       type: DataTypes.STRING,
       allowNull: false
-    }, 
+    },
     body: {
       type: DataTypes.TEXT,
       allowNull: false
