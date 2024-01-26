@@ -19,8 +19,12 @@ sequelize.authenticate().then(() => { console.log('Connected to the database') }
 
 
 const articleRouter = require('./routes/article')
+const authorRouter = require('./routes/author')
+
+
+
 app.use('/', articleRouter)
-app.use('/article', articleRouter)
+app.use('/author', authorRouter)
 
 app.listen(port, () => {
     console.log('Server is running on localhost:' + port)
